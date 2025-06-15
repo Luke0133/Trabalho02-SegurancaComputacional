@@ -1,4 +1,6 @@
 import operation_modes as functions
+from Crypto.Random import get_random_bytes
+from Crypto.Cipher import AES
 import time
 import pandas as pd
 import base64
@@ -57,23 +59,36 @@ def main_ui():
         print("Choose an Option:\n| 1. Fixed Values\n| 2. Enter your own values")
         try:
             choice = int(input("Type the number to select your answer: "))
-            match choice:
-                case 1:
-                    return ("I am Groot.", "RandomKeyAES1234", b"1010101010101010")
-                case 2:
-                    while True:
-                        key = input("Type your key. (16 bytes) ")
-                        if len(key) != 16:
-                            continue
-                        plaintext = input("Type your text to be encrypted. ")
+            if choice not in [1, 2]:
+                continue
+            break
+        except ValueError:
+            pass
+    match choice:
+        case 1:
+            return ("I am Groot.", "RandomKeyAES1234", b"1010101010101010")
+        case 2:
+            while True:
+                key = input("Type your key. (16 bytes) ")
+                if len(key) != 16:
+                    continue
+                plaintext = input("Type your text to be encrypted. ")
+                break
+            while True:
+                iv_choice = input("Choose an Option:\n| 1. Random Initialization Vector\n| 2. Custom Initialization Vector ")
+                if iv_choice not in ['1', '2']:
+                    continue
+                match iv_choice:
+                    case "1":
+                        initialization_vector = get_random_bytes(AES.block_size)
+                        return (plaintext, key, initialization_vector)
+                    case "2":
                         while True:
                             custom_iv = input("Type the initialization vector to be used. (16 bytes) ")
                             if len(custom_iv) != 16:
                                 continue
                             custom_iv = custom_iv.encode('utf-8')
-                            return (plaintext, key, custom_iv)
-        except ValueError:
-            pass
+                            return (plaintext, key, custom_iv)  
                 
 if __name__ == "__main__":
     main()
