@@ -50,9 +50,7 @@ def main():
         df = pd.DataFrame(data, index = ["ECB", "CBC", "CFB", "OFB", "CTR"])
         print(tabulate(df, headers='keys', tablefmt='github', stralign='center'))
 
-        mode = input("Press any key to continue")
-    if mode == "1":
-        main()
+        input("Press any key to continue")
 
 def main_ui():
     while True:
