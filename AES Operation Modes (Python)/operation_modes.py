@@ -47,12 +47,12 @@ def output_feedback(plaintext: str, key: str, initialization_vector: bytes):
     cyphertext = cypher.encrypt(plaintext_bytes) #Encrypts the plaintext into 128 bits AES with OFB mode.
     return cyphertext
 
-def counter(plaintext: str, key: str):
-    #Encrypts the plaintext using AES-CTR with the provided key.
+def counter(plaintext: str, key: str, initialization_vector: bytes):
+    #Encrypts the plaintext using AES-CTR with the provided key and initialization vector (nonce).
     plaintext_bytes = plaintext.encode('utf-8') #Converts the plaintext to bytes using utf-8 encoding.
     key_bytes = key.encode('utf-8') #Converts the plaintext to bytes using utf-8 encoding.
-    nonce = 0 #Initial value used for the counter.
-    counter = Counter.new(128, initial_value=nonce) #Counter that will be used in the algorithm.
+    nonce = initialization_vector[:8] #Gets the first 8 bytes of the 16 bytes initialization vector inserted.
+    counter = Counter.new(64, prefix=nonce, initial_value=0) #Counter that will be used in the algorithm, in this case, the counter is 128 bits long (64 nonce bits + 64 counter bits).
     cypher = AES.new(key_bytes, AES.MODE_CTR, counter=counter) #Creates the cypher that will be used to encrypt the plaintext.
-    cyphertext = cypher.encrypt(plaintext_bytes) #Encrypts the plaintext into 128 bits AES with CTR mode starting from 0 and going up to 128.
+    cyphertext = cypher.encrypt(plaintext_bytes) #Encrypts the plaintext into 128 bits AES with CTR mode using a 128 bits counter.
     return cyphertext
