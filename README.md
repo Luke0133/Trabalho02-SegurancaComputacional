@@ -25,6 +25,10 @@ Pandas
 ```sh
 pip install pandas
 ```
+Tabulate
+```sh
+pip install tabulate
+```
 
 <h2>Autores</h2>
 <table>
