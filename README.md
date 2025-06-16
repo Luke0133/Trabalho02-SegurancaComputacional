@@ -5,11 +5,11 @@ Trabalho 2 da disciplina Segurança Computacional da Universidade de Brasília, 
 - Luca Heringer Megiorin - 231003390
 
 ## Configurações iniciais
-1. Para executar as partes I e II do projeto, que foram programadas em C, copie e cole no terminal:
+1. Para executar as partes do projeto relacionadas ao S-AES, que foram programadas em C, copie e cole no terminal:
 ```sh
 make main
 ```
-2. Para executar a parte III do projeto, que foi programada em Python:
+2. Para executar a parte do projeto relacionada aos Modos de Operação do AES, que foi programada em Python:
 
 2.1 Certifique-se que está usando a versão 3.13.0 do Python ou superior, o projeto tende a dar problemas em versões anteriores. Para checar sua versão digite no terminal:
 ```sh
