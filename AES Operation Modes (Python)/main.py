@@ -33,15 +33,14 @@ def main():
     end_ofb = time.perf_counter()
 
     start_ctr = time.perf_counter()
-    result_ctr = functions.counter(choice[0], choice[1])
+    result_ctr = functions.counter(choice[0], choice[1], choice[2])
     end_ctr = time.perf_counter()
     
     #Data from the operation modes is inserted into a dictionary to be displayed on a DataFrame.
     data = {
         "Plaintext": [choice[0], choice[0], choice[0], choice[0], choice[0]],
         "Key": [choice[1], choice[1], choice[1], choice[1], choice[1]],
-        "Initialization Vector": ["NA", choice[2], choice[2], choice[2], "NA"],
-        "Counter Range": ["NA", "NA", "NA", "NA", "0-128"],
+        "Initialization Vector": ["NA", choice[2], choice[2], choice[2], choice[2]],
         "Time Elapsed": [(end_ecb - start_ecb) * 1000, (end_cbc - start_cbc) * 1000, (end_cfb - start_cfb) * 1000, (end_ofb - start_ofb) * 1000, (end_ctr - start_ctr) * 1000],
         "Ciphertext (Base 64)": [base64.b64encode(result_ecb), base64.b64encode(result_cbc), base64.b64encode(result_cfb), base64.b64encode(result_ofb), base64.b64encode(result_ctr)]
     }
